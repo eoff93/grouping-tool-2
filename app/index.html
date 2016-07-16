@@ -51,6 +51,32 @@
           </div>
         </div>
       </section>
+
+      <section class="col-sm-4">
+        <table class="table table-bordered">
+          <tr>
+            <th scope="col">Url</th>
+            <th scope="col" colspan="2">Action</th>
+          </tr>
+          <tr ng-repeat="site in main.sites">
+            <td>
+              <a href="{{site.url}}" target="_blank">
+                {{site.url}}
+              </a>
+            </td>
+            <td>
+              <a href="#">
+                Edit
+              </a>
+            </td>
+            <td>
+              <a href="#">
+                Delete
+              </a>
+            </td>
+          </tr>
+        </table>
+      </section>
     </div>
 
   </main>
