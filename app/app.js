@@ -30,8 +30,35 @@ angular.module('groupApp', ['checklist-model'])
   var vm = this;
   vm.sites = getData.sites;
   vm.groups = getData.groups;
-
+  vm.isCreating = false;
+  vm.isEditing = false;
   vm.currentGroup = null;
+
+  vm.startCreating = function() {
+    vm.isCreating = true;
+    vm.isEditing = false;
+  }
+
+  vm.cancelCreating = function() {
+    vm.isCreating = false;
+  }
+
+  vm.startEditing = function() {
+    vm.isEditing = true;
+    vm.isCreating = false;
+  }
+
+  vm.cancelEditing = function() {
+    vm.isEditing = false;
+  }
+
+  vm.shouldShowCreating = function() {
+    return vm.currentGroup && !vm.isEditing;
+  }
+
+  vm.shouldShowEditing = function() {
+    return vm.isEditing && !vm.isCreating;
+  }
 
   vm.setCurrentGroup = function(group) {
     vm.currentGroup = group;
