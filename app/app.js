@@ -16,7 +16,7 @@ angular.module('groupApp', ['checklist-model'])
       {"id": 4, "url": "microsoft.com", "color": "red", "groups": []},
       {"id": 5, "url": "scribd.com", "color": "yellow", "groups": ["Social sites"]},
       {"id": 6, "url": "linkedin.com", "color": "", "groups": ["Search engines"]},
-      {"id": 7, "url": "berkeley.edu", "color": "Goldenrod", "groups": ["Blogs"]},
+      {"id": 7, "url": "berkeley.edu", "color": "green", "groups": ["Blogs"]},
       {"id": 8, "url": "google.com", "color": "blue", "groups": ["Search engines"]},
       {"id": 9, "url": "clickbank.net", "color": "", "groups": []},
       {"id": 10, "url": "cam.ac.uk", "color": "green", "groups": []},
