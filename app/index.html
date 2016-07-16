@@ -22,7 +22,7 @@
       <!-- Add website and add group buttons -->
       <section class="col-sm-3 controls">
         <div class="well">
-          <button type="button" class="btn btn-primary btn-block">
+          <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#website-modal">
             Add site
           </button>
           <button class="btn btn-primary btn-block">
@@ -107,9 +107,72 @@
         </table>
       </section>
     </div>
-
   </main>
 
+<!-- Add website modal -->
+<div class="modal fade" id="website-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add site</h4>
+      </div>
+      <div class="modal-body">
+
+        <!-- Website URL form -->
+        <form class="form-horizontal" ng-submit="">
+          <div class="form-group">
+            <label for="website-url" class="col-sm-2 control-label">Site URL</label>
+            <div class="col-sm-10">
+              <input  type="text" class="form-control" id="website-url" required>
+            </div>
+          </div>
+
+          <!-- Website color form -->
+          <div class="form-group">
+            <label for="website-color" class="col-sm-2 control-label">Site color</label>
+            <div class="col-sm-10">
+              <select name="selectColor" id="selectColor" class="form-control">
+                <option value="">- None -</option>
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+                <option value="blue">Blue</option>
+                <option value="yellow">Yellow</option>
+                <option value="orange">Orange</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Website group form -->
+          <div class="form-group">
+            <label for="pick-group" class="col-sm-2 control-label">Groups</label>
+            <div class="col-sm-10" id="pick-group">
+
+              <div ng-repeat="group in main.groups">
+                <div class="checkbox">
+                  <label>
+                    <input
+                    type="checkbox"
+                    checklist-model=""
+                    checklist-value="group.name"
+                    >
+                    {{ group.name }}
+                  </label>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
