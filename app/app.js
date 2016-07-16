@@ -76,6 +76,28 @@ angular.module('groupApp', ['checklist-model'])
   vm.newSite = {};
   vm.editedSite = {};
 
+  vm.createSite = function(site) {
+    site.id = vm.sites.length + 1;
+    vm.sites.push(site);
+    vm.addSiteToGroups(site);
+    vm.resetCreateForm();
+  }
+
+  vm.deleteSite = function(site) {
+    var index = -1;
+    var siteArr = eval(vm.sites);
+    for (var i = 0; i < siteArr.length; i++) {
+      if (siteArr[i].id === site.id) {
+        index = i;
+        break;
+      }
+    }
+    vm.sites.splice(index, 1);
+    vm.removeSiteFromGroups(site);
+  }
+
+
+
   vm.resetCreateForm = function() {
     vm.newSite = {
       id: '',
@@ -103,13 +125,6 @@ angular.module('groupApp', ['checklist-model'])
         }
       }
     }
-  }
-
-  vm.createSite = function(site) {
-    site.id = vm.sites.length + 1;
-    vm.sites.push(site);
-    vm.addSiteToGroups(site);
-    vm.resetCreateForm();
   }
 
   vm.setEditedSite = function(site) {
