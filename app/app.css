@@ -1,0 +1,33 @@
+body {
+  padding-top: 50px; }
+
+/*
+  =====================================
+  List of groups
+  =====================================
+*/
+#groups button {
+  border: 0;
+  border-right: 1px solid lightgray; }
+#groups .badge {
+  color: #fff;
+  background-color: #337AB7; }
+#groups .active {
+  background-color: #fff;
+  border: 1px solid lightgray;
+  border-right: 0;
+  color: #333; }
+#groups .glyphicon-plus {
+  color: #337ab7; }
+
+/*
+  =====================================
+  Modals
+  =====================================
+*/
+.modal h4 {
+  font-weight: 700; }
+.modal label {
+  font-weight: 400; }
+
+/*# sourceMappingURL=app.css.map */
