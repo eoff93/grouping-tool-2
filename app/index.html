@@ -58,7 +58,7 @@
             <th scope="col">Url</th>
             <th scope="col" colspan="2">Action</th>
           </tr>
-          <tr ng-repeat="site in main.sites}">
+          <tr ng-repeat="site in main.sites | filter:{groups:main.currentGroup.name}">
             <td>
               <a href="{{site.url}}" target="_blank">
                 {{site.url}}
