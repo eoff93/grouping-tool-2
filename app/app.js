@@ -92,6 +92,23 @@ angular.module('groupApp', ['checklist-model'])
     vm.resetCreateGroupForm();
   }
 
+  vm.setEditedGroup = function(group) {
+    vm.editedGroup = angular.copy(group);
+  }
+
+  vm.updateGroup = function(group) {
+    var oldName = group.name;
+    var index = -1;
+    var groupArr = eval(vm.groups);
+    for (var i = 0; i < groupArr.length; i++) {
+      if (groupArr[i].id === group.id) {
+        index = i;
+        break;
+      }
+    }
+    vm.groups[index] = group;
+  }
+
   vm.createSite = function(site) {
     site.id = vm.sites.length + 1;
     vm.sites.push(site);
