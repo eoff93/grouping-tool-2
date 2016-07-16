@@ -64,10 +64,21 @@
         </div>
         <table class="table table-bordered">
           <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Url</th>
-            <th scope="col">Color</th>
-            <th scope="col" colspan="2">Action</th>
+            <th scope="col">
+              ID
+            </th>
+            <th scope="col">
+              <div>
+                <span>Url</span>
+                <a href="#"><span class="glyphicon glyphicon glyphicon-sort pull-right" aria-hidden="true"></span></a>
+              </div>
+
+            </th>
+            <th scope="col">
+              Color
+              <a href="#"><span class="glyphicon glyphicon glyphicon glyphicon-sort pull-right" aria-hidden="true"></span></a>
+            </th>
+            <th class="text-center" scope="col" colspan="2">Action</th>
           </tr>
           <tr ng-repeat="site in main.sites | filter:{groups:main.currentGroup.name} | limitTo : 5">
             <td>
