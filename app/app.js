@@ -158,7 +158,7 @@ angular.module('groupApp', ['checklist-model'])
       id: '',
       url: '',
       color: '',
-      groups: ''
+      groups: []
     }
   }
 

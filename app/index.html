@@ -59,11 +59,11 @@
       <section class="col-sm-5">
         <div class="well" ng-hide="main.sites.length">
           You have no websites.
-          <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+          <button class="btn btn-primary" data-toggle="modal" data-target="#website-modal">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add one now!
           </button>
         </div>
-        <table class="table table-bordered">
+        <table class="table table-bordered" ng-show="main.currentGroup.sites.length || main.currentGroup === null" ng-hide="main.sites.length === 0">
           <tr>
             <th scope="col">
               ID
@@ -108,8 +108,6 @@
       </section>
     </div>
   </main>
-<pre>{{main.groups | json}}</pre>
-<pre>{{main.sites | json}}</pre>
 
 <!-- Add website modal -->
 <div class="modal fade" id="website-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
