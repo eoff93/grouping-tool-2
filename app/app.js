@@ -109,6 +109,30 @@ angular.module('groupApp', ['checklist-model'])
     vm.groups[index] = group;
   }
 
+  // cycles through sites and removes the parameter group
+  vm.removeGroupFromSites = function(group) {
+    for (var i = 0; i < vm.sites.length; i++) {
+      for (var j = 0; j < vm.sites[i].groups.length; j++) {
+        if (vm.sites[i].groups[j] === group.name) {
+          vm.sites[i].groups.splice(j, 1);
+        }
+      }
+    }
+  }
+
+  vm.deleteGroup = function(group) {
+    var index = -1;
+    var groupArr = eval(vm.groups);
+    for (var i = 0; i < groupArr.length; i++) {
+      if (groupArr[i].id === group.id) {
+        index = i;
+        break;
+      }
+    }
+    vm.removeGroupFromSites(group);
+    vm.groups.splice(index, 1);
+  }
+
   vm.createSite = function(site) {
     site.id = vm.sites.length + 1;
     vm.sites.push(site);
