@@ -6,23 +6,23 @@ angular.module('groupApp', ['checklist-model'])
       {"id": 2,"name": "Search engines", "color": "", "sites": ["google.com", "linkedin.com"] },
       {"id": 3,"name": "Blogs", "color": "green", "sites": ["live.com", "berkeley.edu", "hibu.com"] },
       {"id": 4,"name": "Learning sites", "color": "orange", "sites": ["shop-pro.jp"] },
-      {"id": 5,"name": "Entertainment", "color": "red", "sites": null }
+      {"id": 5,"name": "Entertainment", "color": "red", "sites": [] }
     ],
 
     sites: [
       {"id": 1, "url": "shop-pro.jp", "color": "red","groups": ["Social sites", "Learning sites"]},
-      {"id": 2, "url": "desdev.cn", "color": "blue", "groups": null},
+      {"id": 2, "url": "desdev.cn", "color": "blue", "groups": []},
       {"id": 3, "url": "live.com", "color": "orange", "groups": ["Blogs"]},
-      {"id": 4, "url": "microsoft.com", "color": "red", "groups": null},
+      {"id": 4, "url": "microsoft.com", "color": "red", "groups": []},
       {"id": 5, "url": "scribd.com", "color": "yellow", "groups": ["Social sites"]},
       {"id": 6, "url": "linkedin.com", "color": "", "groups": ["Search engines"]},
       {"id": 7, "url": "berkeley.edu", "color": "Goldenrod", "groups": ["Blogs"]},
       {"id": 8, "url": "google.com", "color": "blue", "groups": ["Search engines"]},
-      {"id": 9, "url": "clickbank.net", "color": "", "groups": null},
-      {"id": 10, "url": "cam.ac.uk", "color": "green", "groups": null},
+      {"id": 9, "url": "clickbank.net", "color": "", "groups": []},
+      {"id": 10, "url": "cam.ac.uk", "color": "green", "groups": []},
       {"id": 11, "url": "hibu.com", "color": "blue", "groups": ["Blogs"]},
-      {"id": 12, "url": "over-blog.com", "color": "yellow", "groups": null},
-      {"id": 13, "url": "cafepress.com", "color": "green", "groups": null}
+      {"id": 12, "url": "over-blog.com", "color": "yellow", "groups": []},
+      {"id": 13, "url": "cafepress.com", "color": "green", "groups": []}
     ]
   }
 })
@@ -83,9 +83,20 @@ angular.module('groupApp', ['checklist-model'])
     }
   }
 
+  vm.addSiteToGroups = function(site) {
+    for (var i = 0; i < site.groups.length; i++) {
+      for (var j = 0; j < vm.groups.length; j++) {
+        if (site.groups[i] === vm.groups[j].name) {
+          vm.groups[j].sites.push(site.url);
+        }
+      }
+    }
+  }
+
   vm.createSite = function() {
     vm.newSite.id = vm.sites.length + 1;
     vm.sites.push(vm.newSite);
+    vm.addSiteToGroups(vm.newSite);
     vm.resetCreateForm();
     vm.selectedGroups = [];
   }
