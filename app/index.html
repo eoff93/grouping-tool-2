@@ -20,7 +20,7 @@
   <main class="container">
     <div class="row">
       <!-- Add website and add group buttons -->
-      <section class="col-sm-3 col-sm-offset-1 controls">
+      <section class="col-sm-3 controls">
         <div class="well">
           <button type="button" class="btn btn-primary btn-block">
             Add site
@@ -55,7 +55,7 @@
         </div>
       </section>
 
-      <section class="col-sm-4">
+      <section class="col-sm-5">
         <div class="well" ng-hide="main.sites.length">
           You have no websites.
           <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -64,14 +64,22 @@
         </div>
         <table class="table table-bordered">
           <tr>
+            <th scope="col">ID</th>
             <th scope="col">Url</th>
+            <th scope="col">Color</th>
             <th scope="col" colspan="2">Action</th>
           </tr>
-          <tr ng-repeat="site in main.sites | filter:{groups:main.currentGroup.name}">
+          <tr ng-repeat="site in main.sites | filter:{groups:main.currentGroup.name} | limitTo : 5">
+            <td>
+              {{$index + 1}}
+            </td>
             <td>
               <a href="{{site.url}}" target="_blank">
                 {{site.url}}
               </a>
+            </td>
+            <td>
+              {{site.color || "none"}}
             </td>
             <td>
               <a href="#">
