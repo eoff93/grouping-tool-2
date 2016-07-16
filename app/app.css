@@ -9,6 +9,10 @@ body {
 #groups button {
   border: 0;
   border-right: 1px solid lightgray; }
+#groups .group-controls a:link {
+  text-decoration: none; }
+#groups .group-controls a:visited {
+  text-decoration: none; }
 #groups .badge {
   color: #fff;
   background-color: #337AB7; }

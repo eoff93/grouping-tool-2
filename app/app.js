@@ -26,6 +26,10 @@ angular.module('groupApp', ['checklist-model'])
     ]
   }
 })
-.controller('MainController', function() {
+.controller('MainController', function(getData) {
   var vm = this;
+  vm.sites = getData.sites;
+  vm.groups = getData.groups;
+
+  
 })
