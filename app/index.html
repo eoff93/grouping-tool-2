@@ -81,7 +81,7 @@
             </th>
             <th class="text-center" scope="col" colspan="2">Action</th>
           </tr>
-          <tr ng-repeat="site in main.sites | filter:{groups:main.currentGroup.name} | limitTo : 5">
+          <tr ng-repeat="site in main.sites | filter:{groups:main.currentGroup.name}">
             <td>
               {{$index + 1}}
             </td>
@@ -108,7 +108,7 @@
       </section>
     </div>
   </main>
-
+<pre>{{main.sites | json}}</pre>
 <!-- Add website modal -->
 <div class="modal fade" id="website-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -120,11 +120,11 @@
       <div class="modal-body">
 
         <!-- Website URL form -->
-        <form class="form-horizontal" ng-submit="">
+        <form class="form-horizontal" ng-submit="main.createSite(newSite)">
           <div class="form-group">
             <label for="website-url" class="col-sm-2 control-label">Site URL</label>
             <div class="col-sm-10">
-              <input  type="text" class="form-control" id="website-url" required>
+              <input ng-model="main.newSite.url" type="text" class="form-control" id="website-url" required>
             </div>
           </div>
 
@@ -132,7 +132,7 @@
           <div class="form-group">
             <label for="website-color" class="col-sm-2 control-label">Site color</label>
             <div class="col-sm-10">
-              <select name="selectColor" id="selectColor" class="form-control">
+              <select ng-model="main.newSite.color" name="selectColor" id="selectColor" class="form-control">
                 <option value="">- None -</option>
                 <option value="red">Red</option>
                 <option value="green">Green</option>
@@ -142,7 +142,8 @@
               </select>
             </div>
           </div>
-
+          {{main.newSite}}
+          {{main.selectedGroups}}
           <!-- Website group form -->
           <div class="form-group">
             <label for="pick-group" class="col-sm-2 control-label">Groups</label>
@@ -153,7 +154,7 @@
                   <label>
                     <input
                     type="checkbox"
-                    checklist-model=""
+                    checklist-model="main.newSite.groups"
                     checklist-value="group.name"
                     >
                     {{ group.name }}

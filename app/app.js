@@ -33,6 +33,7 @@ angular.module('groupApp', ['checklist-model'])
   vm.isCreating = false;
   vm.isEditing = false;
   vm.currentGroup = null;
+  vm.newSite = {};
 
   vm.startCreating = function() {
     vm.isCreating = true;
@@ -67,4 +68,26 @@ angular.module('groupApp', ['checklist-model'])
   vm.isCurrentGroup = function(group) {
     return vm.currentGroup !== null && group.name === vm.currentGroup.name;
   }
+
+  /*
+    ================
+    Create, Edit, Delete
+    ================
+  */
+  vm.resetCreateForm = function() {
+    vm.newSite = {
+      id: '',
+      url: '',
+      color: '',
+      groups: ''
+    }
+  }
+
+  vm.createSite = function() {
+    vm.newSite.id = vm.sites.length + 1;
+    vm.sites.push(vm.newSite);
+    vm.resetCreateForm();
+    vm.selectedGroups = [];
+  }
+
 })
