@@ -93,12 +93,11 @@ angular.module('groupApp', ['checklist-model'])
     }
   }
 
-  vm.createSite = function() {
-    vm.newSite.id = vm.sites.length + 1;
-    vm.sites.push(vm.newSite);
-    vm.addSiteToGroups(vm.newSite);
+  vm.createSite = function(site) {
+    site.id = vm.sites.length + 1;
+    vm.sites.push(site);
+    vm.addSiteToGroups(site);
     vm.resetCreateForm();
-    vm.selectedGroups = [];
   }
 
 })
