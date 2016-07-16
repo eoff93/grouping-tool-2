@@ -31,5 +31,13 @@ angular.module('groupApp', ['checklist-model'])
   vm.sites = getData.sites;
   vm.groups = getData.groups;
 
-  
+  vm.currentGroup = null;
+
+  vm.setCurrentGroup = function(group) {
+    vm.currentGroup = group;
+  }
+
+  vm.isCurrentGroup = function(group) {
+    return vm.currentGroup !== null && group.name === vm.currentGroup.name;
+  }
 })

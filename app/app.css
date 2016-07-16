@@ -18,7 +18,7 @@ a:visited {
 #groups .badge {
   color: #fff;
   background-color: #337AB7; }
-#groups .active {
+#groups .current-group {
   background-color: #fff;
   border: 1px solid lightgray;
   border-right: 0;

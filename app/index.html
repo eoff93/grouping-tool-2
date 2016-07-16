@@ -32,11 +32,11 @@
       </section>
       <section class="col-sm-4" id="groups">
         <div class="list-group">
-          <button type="button" class="list-group-item active">
+          <button type="button" class="list-group-item active" ng-click="main.setCurrentGroup(null)">
             All websites <span class="badge">{{main.sites.length}}</span>
           </button>
           <div ng-repeat="group in main.groups">
-            <button type="button" class="list-group-item">
+            <button type="button" class="list-group-item" ng-click="main.setCurrentGroup(group)" ng-class="{'current-group':main.isCurrentGroup(group)}">
               {{group.name}}
               <section class="group-controls pull-right">
                 <a href="#">
@@ -58,7 +58,7 @@
             <th scope="col">Url</th>
             <th scope="col" colspan="2">Action</th>
           </tr>
-          <tr ng-repeat="site in main.sites">
+          <tr ng-repeat="site in main.sites}">
             <td>
               <a href="{{site.url}}" target="_blank">
                 {{site.url}}
