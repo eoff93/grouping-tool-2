@@ -33,7 +33,6 @@ angular.module('groupApp', ['checklist-model'])
   vm.isCreating = false;
   vm.isEditing = false;
   vm.currentGroup = null;
-  vm.newSite = {};
 
   vm.startCreating = function() {
     vm.isCreating = true;
@@ -74,6 +73,9 @@ angular.module('groupApp', ['checklist-model'])
     Create, Edit, Delete
     ================
   */
+  vm.newSite = {};
+  vm.editedSite = {};
+
   vm.resetCreateForm = function() {
     vm.newSite = {
       id: '',
@@ -93,6 +95,16 @@ angular.module('groupApp', ['checklist-model'])
     }
   }
 
+  vm.removeSiteFromGroups = function(site) {
+    for (var i = 0; i < vm.groups.length; i++) {
+      for (var j = 0; j < vm.groups[i].sites.length; j++) {
+        if (vm.groups[i].sites[j] === site.url) {
+          vm.groups[i].sites.splice(j, 1);
+        }
+      }
+    }
+  }
+
   vm.createSite = function(site) {
     site.id = vm.sites.length + 1;
     vm.sites.push(site);
@@ -100,4 +112,21 @@ angular.module('groupApp', ['checklist-model'])
     vm.resetCreateForm();
   }
 
+  vm.setEditedSite = function(site) {
+    vm.editedSite = angular.copy(site);
+  }
+
+  vm.updateSite = function(site) {
+    var index = -1;
+    var siteArr = eval(vm.sites);
+    for (var i = 0; i < siteArr.length; i++) {
+      if (siteArr[i].id === site.id) {
+        index = i;
+        break;
+      }
+    }
+    vm.sites[index] = site;
+    vm.removeSiteFromGroups(site);
+    vm.addSiteToGroups(site);
+  }
 })

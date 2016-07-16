@@ -94,7 +94,7 @@
               {{site.color || "none"}}
             </td>
             <td>
-              <a href="#" ng-click="main.startEditing()" data-toggle="modal" data-target="#edit-website-modal">
+              <a href="#" ng-click="main.startEditing(); main.setEditedSite(site)" data-toggle="modal" data-target="#edit-website-modal">
                 Edit
               </a>
             </td>
@@ -182,13 +182,13 @@
         <h4 class="modal-title" id="myModalLabel">Edit site</h4>
       </div>
       <div class="modal-body">
-
+        {{main.editedSite}}
         <!-- Website URL form -->
-        <form class="form-horizontal" ng-submit="">
+        <form class="form-horizontal" ng-submit="main.updateSite(main.editedSite)">
           <div class="form-group">
             <label for="website-url" class="col-sm-2 control-label">Site URL</label>
             <div class="col-sm-10">
-              <input  type="text" class="form-control" id="website-url" required>
+              <input ng-model="main.editedSite.url" type="text" class="form-control" id="website-url" required>
             </div>
           </div>
 
@@ -196,7 +196,7 @@
           <div class="form-group">
             <label for="website-color" class="col-sm-2 control-label">Site color</label>
             <div class="col-sm-10">
-              <select name="selectColor" id="selectColor" class="form-control">
+              <select ng-model="main.editedSite.color" name="selectColor" id="selectColor" class="form-control">
                 <option value="">- None -</option>
                 <option value="red">Red</option>
                 <option value="green">Green</option>
@@ -217,7 +217,7 @@
                   <label>
                     <input
                     type="checkbox"
-                    checklist-model=""
+                    checklist-model="main.editedSite.groups"
                     checklist-value="group.name"
                     >
                     {{ group.name }}
