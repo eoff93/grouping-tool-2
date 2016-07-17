@@ -41,7 +41,7 @@
             Ungrouped websites
             <span class="badge badge-alt">{{main.getUngroupedSites()}}</span>
           </button>
-          <div ng-repeat="group in main.groups | filter:{sites: search}">
+          <div ng-repeat="group in main.groups | filter:{sites: search} | limitTo:10 track by group.id">
             <button type="button" class="list-group-item" ng-click="main.setCurrentGroup(group)" ng-class="{'current-group':main.isCurrentGroup(group)}">
               {{group.name}}
               <section class="group-controls pull-right">
@@ -63,8 +63,14 @@
 
       <!-- Website list -->
       <section class="col-sm-5">
+        <div class="well" ng-hide="main.sites.length">
+          You have no websites.
+          <button class="btn btn-primary" data-toggle="modal" data-target="#website-modal">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add one now!
+          </button>
+        </div>
 
-        <section class="row">
+        <section class="row" ng-show="main.sites.length">
           <div class="col-sm-12">
             <form class="form-inline">
               <input type="text" class="form-control" placeholder="Search" ng-model="search">
@@ -77,15 +83,6 @@
           </div>
         </section>
         <br>
-        <div class="well" ng-hide="main.sites.length">
-          You have no websites.
-          <button class="btn btn-primary" data-toggle="modal" data-target="#website-modal">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add one now!
-          </button>
-        </div>
-        <div>
-
-        </div>
         <table
           class="table table-bordered"
           ng-show="main.currentGroup.sites.length"
@@ -109,7 +106,7 @@
             <th class="text-center" scope="col" colspan="2">Action</th>
           </tr>
           <tr ng-repeat="site in main.sites | filter:{groups:main.currentGroup.name} |
-                         filter:{url: search} | limitTo:main.dataToShow.value"
+                         filter:{url: search} | limitTo:main.dataToShow.value track by site.id"
           >
             <td>
               {{$index + 1}}
@@ -163,7 +160,7 @@
           <tr ng-repeat="site in main.sites |
                    filter:main.byEmptyGroup |
                    filter:search            |
-                   limitTo:main.dataToShow.value"
+                   limitTo:main.dataToShow.value track by site.id"
           >
             <td>
               {{$index + 1}}
@@ -230,7 +227,7 @@
             <label for="pick-group" class="col-sm-2 control-label">Groups</label>
             <div class="col-sm-10" id="pick-group">
 
-              <div ng-repeat="group in main.groups">
+              <div ng-repeat="group in main.groups track by group.id">
                 <div class="checkbox">
                   <label>
                     <input
@@ -293,7 +290,7 @@
             <label for="pick-group" class="col-sm-2 control-label">Groups</label>
             <div class="col-sm-10" id="pick-group">
 
-              <div ng-repeat="group in main.groups">
+              <div ng-repeat="group in main.groups track by group.id">
                 <div class="checkbox">
                   <label>
                     <input
@@ -406,8 +403,6 @@
     </div>
   </div>
 </div>
-<pre>{{main.groups | json}}</pre>
-<pre>{{main.sites | json}}</pre>
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
