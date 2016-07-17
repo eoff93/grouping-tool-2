@@ -142,7 +142,6 @@ angular.module('groupApp', ['checklist-model'])
 
   vm.createSite = function(site) {
     site.id = vm.sites.length + 1;
-    site.groups = [];
     vm.sites.push(site);
     vm.addSiteToGroups(site);
     vm.resetCreateForm();
