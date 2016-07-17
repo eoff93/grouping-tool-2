@@ -8,6 +8,7 @@ angular.module('groupApp', ['checklist-model'])
 .controller('MainController', function(getData) {
   // Initial variables
   var vm = this;
+  vm.showJson = false;
   vm.data = getData;
   vm.sites = vm.data.sites;
   vm.groups = vm.data.groups;
@@ -16,6 +17,10 @@ angular.module('groupApp', ['checklist-model'])
                           {id:4, value:50}, {id:5, value:100}];
   vm.currentGroup = null;
 
+  /** Toggles the value that displays JSON */
+  vm.toggleShowJson = function() {
+    (vm.showJson) ? vm.showJson = false : vm.showJson = true;
+  }
 
   /** Takes in an group object and sets currentGroup to it */
   vm.setCurrentGroup = function(group) {
@@ -194,7 +199,6 @@ angular.module('groupApp', ['checklist-model'])
     // this was done because submit kept adding new groups to the site
     vm.setEditedGroup(group);
   }
-
 
   vm.updateGroupIds = function() {
     for (var i = 0; i < vm.groups.length; i++) {

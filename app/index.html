@@ -28,6 +28,9 @@
           <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#group-modal">
             Add group
           </button>
+          <button class="btn btn-info btn-block" ng-click="main.toggleShowJson()">
+            Show JSON
+          </button>
         </div>
       </section>
 
@@ -271,7 +274,7 @@
               </select>
             </div>
           </div>
-
+          {{main.editedSite}}
           <!-- Website group form -->
           <div class="form-group" ng-show="main.groups.length">
             <label for="pick-group" class="col-sm-2 control-label">Groups</label>
@@ -390,8 +393,19 @@
     </div>
   </div>
 </div>
-<pre>{{main.sites | json}}</pre>
-<pre>{{main.groups | json}}</pre>
+
+<div class="container json" ng-if="main.showJson">
+  <div class="row">
+    <div class="col-sm-3 col-sm-offset-2">
+      Sites
+      <pre>{{main.sites | json}}</pre>
+    </div>
+    <div class="col-sm-3">
+      Groups
+      <pre>{{main.groups | json}}</pre>
+    </div>
+  </div>
+</div>
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
