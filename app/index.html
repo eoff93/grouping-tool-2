@@ -65,18 +65,19 @@
       <section class="col-sm-5">
 
         <section class="row">
-          <div class="col-sm-6 col-sm-offset-6">
-            <form name="myForm" class="form-inline pull-right">
-                <label for="howManyRows">Number of rows</label>
-                <select
-                  name="howManyRows" id="howManyRows"
-                  class="form-control"
-                  ng-options="option.value for option in main.dataToShowOptions track by option.id"
-                  ng-model="main.dataToShow"></select>
-              </form>
+          <div class="col-sm-12">
+            <form class="form-inline">
+              <input type="text" class="form-control" placeholder="Search" ng-model="search.url">
+
+              <select
+                name="howManyRows" id="howManyRows"
+                class="form-control pull-right"
+                ng-options="option.value for option in main.dataToShowOptions track by option.id"
+                ng-model="main.dataToShow"></select>
+            </form>
           </div>
         </section>
-
+        <br>
         <div class="well" ng-hide="main.sites.length">
           You have no websites.
           <button class="btn btn-primary" data-toggle="modal" data-target="#website-modal">
@@ -109,7 +110,7 @@
             <th class="text-center" scope="col" colspan="2">Action</th>
           </tr>
           <tr ng-repeat="site in main.sites | filter:{groups:main.currentGroup.name} |
-            limitTo:main.dataToShow.value"
+                         filter:search | limitTo:main.dataToShow.value"
           >
             <td>
               {{$index + 1}}
@@ -162,6 +163,7 @@
 
           <tr ng-repeat="site in main.sites |
                    filter:main.byEmptyGroup |
+                   filter:search            |
                    limitTo:main.dataToShow.value"
           >
             <td>
