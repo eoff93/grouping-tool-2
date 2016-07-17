@@ -109,6 +109,12 @@ angular.module('groupApp', ['checklist-model'])
     vm.groups[index] = group;
   }
 
+  vm.updateGroupIds = function() {
+    for (var i = 0; i < vm.groups.length; i++) {
+      vm.groups[i].id = i + 1;
+    }
+  }
+
   // cycles through sites and removes the parameter group
   vm.removeGroupFromSites = function(group) {
     for (var i = 0; i < vm.sites.length; i++) {
@@ -131,6 +137,7 @@ angular.module('groupApp', ['checklist-model'])
     }
     vm.removeGroupFromSites(group);
     vm.groups.splice(index, 1);
+    vm.updateGroupIds();
   }
 
   vm.createSite = function(site) {
@@ -139,6 +146,12 @@ angular.module('groupApp', ['checklist-model'])
     vm.sites.push(site);
     vm.addSiteToGroups(site);
     vm.resetCreateForm();
+  }
+
+  vm.updateSiteIds = function() {
+    for (var i = 0; i < vm.sites.length; i++) {
+      vm.sites[i].id = i + 1;
+    }
   }
 
   vm.deleteSite = function(site) {
@@ -152,6 +165,7 @@ angular.module('groupApp', ['checklist-model'])
     }
     vm.sites.splice(index, 1);
     vm.removeSiteFromGroups(site);
+    vm.updateSiteIds();
   }
 
   vm.resetCreateForm = function() {
