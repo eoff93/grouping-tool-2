@@ -41,7 +41,7 @@
             Ungrouped websites
             <span class="badge badge-alt">{{main.getUngroupedSites()}}</span>
           </button>
-          <div ng-repeat="group in main.groups">
+          <div ng-repeat="group in main.groups | filter:{sites: search}">
             <button type="button" class="list-group-item" ng-click="main.setCurrentGroup(group)" ng-class="{'current-group':main.isCurrentGroup(group)}">
               {{group.name}}
               <section class="group-controls pull-right">
@@ -67,8 +67,7 @@
         <section class="row">
           <div class="col-sm-12">
             <form class="form-inline">
-              <input type="text" class="form-control" placeholder="Search" ng-model="search.url">
-
+              <input type="text" class="form-control" placeholder="Search" ng-model="search">
               <select
                 name="howManyRows" id="howManyRows"
                 class="form-control pull-right"
@@ -110,7 +109,7 @@
             <th class="text-center" scope="col" colspan="2">Action</th>
           </tr>
           <tr ng-repeat="site in main.sites | filter:{groups:main.currentGroup.name} |
-                         filter:search | limitTo:main.dataToShow.value"
+                         filter:{url: search} | limitTo:main.dataToShow.value"
           >
             <td>
               {{$index + 1}}
