@@ -44,6 +44,7 @@ angular.module('groupApp', ['checklist-model'])
   */
   vm.newSite = {groups: []};
   vm.editedSite = {};
+  vm.oldEditedGroup = {};
   vm.newGroup = {};
   vm.editedGroup = {};
 
@@ -63,6 +64,17 @@ angular.module('groupApp', ['checklist-model'])
 
   vm.setEditedGroup = function(group) {
     vm.editedGroup = angular.copy(group);
+    vm.oldEditedGroup = angular.copy(group);
+  }
+
+  vm.addGroupToSites = function(group) {
+    for (var i = 0; i < group.sites.length; i++) {
+      for (var j = 0; j < vm.sites.length; j++) {
+        if (group.sites[i] === vm.sites[j].url) {
+          vm.sites[j].groups.push(group.name);
+        }
+      }
+    }
   }
 
   vm.updateGroup = function(group) {
@@ -76,6 +88,11 @@ angular.module('groupApp', ['checklist-model'])
       }
     }
     vm.groups[index] = group;
+    // removes the old group name and adds the new group to sites
+    vm.removeGroupFromSites(vm.oldEditedGroup);
+    vm.addGroupToSites(group);
+    // this was done because submit kept adding new groups to the site
+    vm.setEditedGroup(group);
   }
 
   vm.updateGroupIds = function() {
