@@ -34,16 +34,24 @@
       <!-- Group list -->
       <section class="col-sm-4" id="groups">
         <div class="list-group">
+
+          <!-- All websites button -->
           <button type="button" class="list-group-item active" ng-click="main.setCurrentGroup(null)">
             All websites <span class="badge">{{main.sites.length}}</span>
           </button>
+
+          <!-- Ungrouped websites button -->
           <button type="button" class="list-group-item" ng-click="main.setCurrentGroup('ungrouped')" ng-class="{'current-group':main.isCurrentGroup('ungrouped')}">
             Ungrouped websites
             <span class="badge badge-alt">{{main.getUngroupedSites()}}</span>
           </button>
+
+          <!-- Group buttons -->
           <div ng-repeat="group in main.groups | filter:{sites: search} | limitTo:10 track by group.id">
             <button type="button" class="list-group-item" ng-click="main.setCurrentGroup(group)" ng-class="{'current-group':main.isCurrentGroup(group)}">
+
               {{group.name}}
+              <!-- Group edit and delete section -->
               <section class="group-controls pull-right">
                 <a href="#" ng-click="main.setEditedGroup(group)" data-toggle="modal" data-target="#edit-group-modal">
                   <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
@@ -55,14 +63,17 @@
               </section>
             </button>
           </div>
+
           <button type="button" class="list-group-item" data-toggle="modal" data-target="#website-modal">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add website
           </button>
-        </div>
-      </section>
+        </div> <!-- .list-group -->
+      </section> <!-- .groups -->
 
       <!-- Website list -->
       <section class="col-sm-5">
+
+        <!-- Shows up when there are no sites -->
         <div class="well" ng-hide="main.sites.length">
           You have no websites.
           <button class="btn btn-primary" data-toggle="modal" data-target="#website-modal">
@@ -70,6 +81,7 @@
           </button>
         </div>
 
+        <!-- Search and select form -->
         <section class="row" ng-show="main.sites.length">
           <div class="col-sm-12">
             <form class="form-inline">
@@ -82,43 +94,32 @@
             </form>
           </div>
         </section>
+
         <br>
+
+        <!-- Main table -->
         <table
           class="table table-bordered"
           ng-show="main.currentGroup.sites.length"
           ng-hide="main.sites.length === 0 || main.isCurrentGroup('ungrouped')"
           >
           <tr>
-            <th scope="col">
-              ID
-            </th>
-            <th scope="col">
-              <div>
-                <span>Url</span>
-                <a href="#"><span class="glyphicon glyphicon glyphicon-sort pull-right" aria-hidden="true"></span></a>
-              </div>
-
-            </th>
-            <th scope="col">
-              Color
-              <a href="#"><span class="glyphicon glyphicon glyphicon glyphicon-sort pull-right" aria-hidden="true"></span></a>
-            </th>
+            <th scope="col"> ID </th>
+            <th scope="col"> Url </th>
+            <th scope="col"> Color </th>
             <th class="text-center" scope="col" colspan="2">Action</th>
           </tr>
           <tr ng-repeat="site in main.sites | filter:{groups:main.currentGroup.name} |
                          filter:{url: search} | limitTo:main.dataToShow.value track by site.id"
           >
-            <td>
-              {{$index + 1}}
-            </td>
+            <!-- Table data -->
+            <td> {{$index + 1}} </td>
             <td>
               <a href="{{site.url}}" target="_blank">
                 {{site.url}}
               </a>
             </td>
-            <td>
-              {{site.color || "none"}}
-            </td>
+            <td> {{site.color || "none"}} </td>
             <td>
               <a href="#" ng-click="main.setEditedSite(site)" data-toggle="modal" data-target="#edit-website-modal">
                 Edit
@@ -140,20 +141,9 @@
                              main.sites.length === 0"
           >
           <tr>
-            <th scope="col">
-              ID
-            </th>
-            <th scope="col">
-              <div>
-                <span>Url</span>
-                <a href="#"><span class="glyphicon glyphicon glyphicon-sort pull-right" aria-hidden="true"></span></a>
-              </div>
-
-            </th>
-            <th scope="col">
-              Color
-              <a href="#"><span class="glyphicon glyphicon glyphicon glyphicon-sort pull-right" aria-hidden="true"></span></a>
-            </th>
+            <th scope="col"> ID </th>
+            <th scope="col"> Url </th>
+            <th scope="col"> Color </th>
             <th class="text-center" scope="col" colspan="2">Action</th>
           </tr>
 
@@ -162,17 +152,14 @@
                    filter:search            |
                    limitTo:main.dataToShow.value track by site.id"
           >
-            <td>
-              {{$index + 1}}
-            </td>
+            <!-- Table data -->
+            <td> {{$index + 1}} </td>
             <td>
               <a href="{{site.url}}" target="_blank">
                 {{site.url}}
               </a>
             </td>
-            <td>
-              {{site.color || "none"}}
-            </td>
+            <td> {{site.color || "none"}} </td>
             <td>
               <a href="#" ng-click="main.setEditedSite(site)" data-toggle="modal" data-target="#edit-website-modal">
                 Edit
@@ -185,8 +172,8 @@
             </td>
           </tr>
         </table>
-      </section>
-    </div>
+      </section> <!-- .col-sm-5 -->
+    </div> <!-- .row -->
   </main>
 
 <!-- Add website modal -->
