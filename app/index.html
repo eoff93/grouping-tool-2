@@ -37,6 +37,10 @@
           <button type="button" class="list-group-item active" ng-click="main.setCurrentGroup(null)">
             All websites <span class="badge">{{main.sites.length}}</span>
           </button>
+          <button type="button" class="list-group-item" ng-click="main.setCurrentGroup('ungrouped')" ng-class="{'current-group':main.isCurrentGroup('ungrouped')}">
+            Ungrouped websites
+            <span class="badge badge-alt">{{main.getUngroupedSites()}}</span>
+          </button>
           <div ng-repeat="group in main.groups">
             <button type="button" class="list-group-item" ng-click="main.setCurrentGroup(group)" ng-class="{'current-group':main.isCurrentGroup(group)}">
               {{group.name}}
@@ -65,7 +69,11 @@
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add one now!
           </button>
         </div>
-        <table class="table table-bordered" ng-show="main.currentGroup.sites.length || main.currentGroup === null" ng-hide="main.sites.length === 0">
+        <table
+          class="table table-bordered"
+          ng-show="main.currentGroup.sites.length"
+          ng-hide="main.sites.length === 0 || main.isCurrentGroup('ungrouped')"
+          >
           <tr>
             <th scope="col">
               ID
@@ -84,6 +92,55 @@
             <th class="text-center" scope="col" colspan="2">Action</th>
           </tr>
           <tr ng-repeat="site in main.sites | filter:{groups:main.currentGroup.name}">
+            <td>
+              {{$index + 1}}
+            </td>
+            <td>
+              <a href="{{site.url}}" target="_blank">
+                {{site.url}}
+              </a>
+            </td>
+            <td>
+              {{site.color || "none"}}
+            </td>
+            <td>
+              <a href="#" ng-click="main.startEditing(); main.setEditedSite(site)" data-toggle="modal" data-target="#edit-website-modal">
+                Edit
+              </a>
+            </td>
+            <td>
+              <a href="#" ng-click="main.deleteSite(site)">
+                Delete
+              </a>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Ungrouped table -->
+        <table
+          class="table table-bordered"
+          ng-show="main.isCurrentGroup('ungrouped') && main.getUngroupedSites()"
+          ng-hide="!main.isCurrentGroup('ungrouped') ||
+                             main.sites.length === 0"
+          >
+          <tr>
+            <th scope="col">
+              ID
+            </th>
+            <th scope="col">
+              <div>
+                <span>Url</span>
+                <a href="#"><span class="glyphicon glyphicon glyphicon-sort pull-right" aria-hidden="true"></span></a>
+              </div>
+
+            </th>
+            <th scope="col">
+              Color
+              <a href="#"><span class="glyphicon glyphicon glyphicon glyphicon-sort pull-right" aria-hidden="true"></span></a>
+            </th>
+            <th class="text-center" scope="col" colspan="2">Action</th>
+          </tr>
+          <tr ng-repeat="site in main.sites | filter:main.byEmptyGroup">
             <td>
               {{$index + 1}}
             </td>

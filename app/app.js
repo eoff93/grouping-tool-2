@@ -28,8 +28,9 @@ angular.module('groupApp', ['checklist-model'])
 })
 .controller('MainController', function(getData) {
   var vm = this;
-  vm.sites = getData.sites;
-  vm.groups = getData.groups;
+  vm.data = getData;
+  vm.sites = vm.data.sites;
+  vm.groups = vm.data.groups;
   vm.isCreating = false;
   vm.isEditing = false;
   vm.currentGroup = null;
@@ -68,12 +69,26 @@ angular.module('groupApp', ['checklist-model'])
     return vm.currentGroup !== null && group.name === vm.currentGroup.name;
   }
 
+  vm.getUngroupedSites = function() {
+    var ungrouped = 0;
+    for (var i = 0; i < vm.sites.length; i++) {
+      if (vm.sites[i].groups.length === 0) {
+        ungrouped++;
+      }
+    }
+    return ungrouped;
+  }
+
+  vm.byEmptyGroup = function(site) {
+    return site.groups.length === 0;
+  }
+
   /*
     ================
     Create, Edit, Delete
     ================
   */
-  vm.newSite = {};
+  vm.newSite = {groups: []};
   vm.editedSite = {};
   vm.newGroup = {};
   vm.editedGroup = {};
