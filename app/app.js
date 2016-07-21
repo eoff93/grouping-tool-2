@@ -42,13 +42,6 @@ angular.module('groupApp', ['checklist-model', 'controllers'])
   }
 })
 
-.directive('allAndUngroupedBtns', function() {
-  return {
-    restrict: 'E',
-    templateUrl: './templates/all-and-ungrouped-btns.template.html'
-  }
-})
-
 .directive('noWebsites', function() {
   return {
     restrict: 'E',
