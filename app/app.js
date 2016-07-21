@@ -5,22 +5,10 @@ angular.module('groupApp', ['checklist-model'])
     sites: []
   }
 })
-.controller('MainController', function(getData) {
-  // Initial variables
-  var vm = this;
-  vm.showJson = false;
-  vm.data = getData;
-  vm.sites = vm.data.sites;
-  vm.groups = vm.data.groups;
-  vm.dataToShow = {id: 2, value:10};
-  vm.dataToShowOptions = [{id:1, value: 5}, {id:2, value:10}, {id: 3, value:20},
-                          {id:4, value:50}, {id:5, value:100}];
-  vm.currentGroup = null;
 
-  /** Toggles the value that displays JSON */
-  vm.toggleShowJson = function() {
-    (vm.showJson) ? vm.showJson = false : vm.showJson = true;
-  }
+.controller('TabController', function() {
+  var vm = this;
+  vm.currentGroup = null;
 
   /** Takes in an group object and sets currentGroup to it */
   vm.setCurrentGroup = function(group) {
@@ -32,6 +20,20 @@ angular.module('groupApp', ['checklist-model'])
     return vm.currentGroup !== null && group.name === vm.currentGroup.name;
   }
 
+})
+
+.controller('MainController', function(getData) {
+  // Initial variables
+  var vm = this;
+  vm.showJson = false;
+  vm.data = getData;
+  vm.sites = vm.data.sites;
+  vm.groups = vm.data.groups;
+  vm.dataToShow = {id: 2, value:10};
+  vm.dataToShowOptions = [{id:1, value: 5}, {id:2, value:10}, {id: 3, value:20},
+                          {id:4, value:50}, {id:5, value:100}];
+
+
   /** Returns the number of ungrouped sites */
   vm.getUngroupedSites = function() {
     var ungrouped = 0;
@@ -41,6 +43,11 @@ angular.module('groupApp', ['checklist-model'])
       }
     }
     return ungrouped;
+  }
+
+  /** Toggles the value that displays JSON */
+  vm.toggleShowJson = function() {
+    (vm.showJson) ? vm.showJson = false : vm.showJson = true;
   }
 
   /** Checks if a site has groups, used for filtering */

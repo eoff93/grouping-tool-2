@@ -34,148 +34,150 @@
         </div>
       </section>
 
-      <!-- Group list -->
-      <section class="col-sm-4" id="groups">
-        <div class="list-group">
+      <div ng-controller="TabController as tab">
+        <!-- Group list -->
+        <section class="col-sm-4" id="groups">
+          <div class="list-group">
 
-          <!-- All websites button -->
-          <button type="button" class="list-group-item active" ng-click="main.setCurrentGroup(null)">
-            All websites <span class="badge">{{main.sites.length}}</span>
-          </button>
+            <!-- All websites button -->
+            <button type="button" class="list-group-item active" ng-click="tab.setCurrentGroup(null)">
+              All websites <span class="badge">{{main.sites.length}}</span>
+            </button>
 
-          <!-- Ungrouped websites button -->
-          <button type="button" class="list-group-item" ng-click="main.setCurrentGroup('ungrouped')" ng-class="{'current-group':main.isCurrentGroup('ungrouped')}">
-            Ungrouped websites
-            <span class="badge badge-alt">{{main.getUngroupedSites()}}</span>
-          </button>
+            <!-- Ungrouped websites button -->
+            <button type="button" class="list-group-item" ng-click="tab.setCurrentGroup('ungrouped')" ng-class="{'current-group':tab.isCurrentGroup('ungrouped')}">
+              Ungrouped websites
+              <span class="badge badge-alt">{{main.getUngroupedSites()}}</span>
+            </button>
 
-          <!-- Group buttons -->
-          <div ng-repeat="group in main.groups | filter:{sites: search} | limitTo:10 track by group.id">
-            <button type="button" class="list-group-item" ng-click="main.setCurrentGroup(group)" ng-class="{'current-group':main.isCurrentGroup(group)}">
+            <!-- Group buttons -->
+            <div ng-repeat="group in main.groups | filter:{sites: search} | limitTo:10 track by group.id">
+              <button type="button" class="list-group-item" ng-click="tab.setCurrentGroup(group)" ng-class="{'current-group':tab.isCurrentGroup(group)}">
 
-              {{group.name}}
-              <!-- Group edit and delete section -->
-              <section class="group-controls pull-right">
-                <a href="#" ng-click="main.setEditedGroup(group)" data-toggle="modal" data-target="#edit-group-modal">
-                  <span class="glyphicon glyphicon-edit" style="color: #EC971F" aria-hidden="true"></span>
-                </a>
-                <a href="#" ng-click="main.deleteGroup(group)">
-                  <span class="glyphicon glyphicon-remove" style="color: #C9302C" aria-hidden="true"></span>
-                </a>
-                <span class="badge badge-alt">{{group.sites.length || 0}}</span>
-              </section>
+                {{group.name}}
+                <!-- Group edit and delete section -->
+                <section class="group-controls pull-right">
+                  <a href="#" ng-click="main.setEditedGroup(group)" data-toggle="modal" data-target="#edit-group-modal">
+                    <span class="glyphicon glyphicon-edit" style="color: #EC971F" aria-hidden="true"></span>
+                  </a>
+                  <a href="#" ng-click="main.deleteGroup(group)">
+                    <span class="glyphicon glyphicon-remove" style="color: #C9302C" aria-hidden="true"></span>
+                  </a>
+                  <span class="badge badge-alt">{{group.sites.length || 0}}</span>
+                </section>
+              </button>
+            </div>
+
+            <button type="button" class="list-group-item" data-toggle="modal" data-target="#website-modal">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add website
+            </button>
+          </div> <!-- .list-group -->
+        </section> <!-- .groups -->
+
+        <!-- Website list -->
+        <section class="col-sm-5">
+
+          <!-- Shows up when there are no sites -->
+          <div class="well" ng-hide="main.sites.length">
+            You have no websites.
+            <button class="btn btn-primary" data-toggle="modal" data-target="#website-modal">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add one now!
             </button>
           </div>
 
-          <button type="button" class="list-group-item" data-toggle="modal" data-target="#website-modal">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add website
-          </button>
-        </div> <!-- .list-group -->
-      </section> <!-- .groups -->
+          <!-- Search and select form -->
+          <section class="row" ng-show="main.sites.length">
+            <div class="col-sm-12">
+              <form class="form-inline">
+                <input type="text" class="form-control" placeholder="Search" ng-model="search">
+                <select
+                  name="howManyRows" id="howManyRows"
+                  class="form-control pull-right"
+                  ng-options="option.value for option in main.dataToShowOptions track by option.id"
+                  ng-model="main.dataToShow"></select>
+              </form>
+            </div>
+          </section>
 
-      <!-- Website list -->
-      <section class="col-sm-5">
+          <br>
 
-        <!-- Shows up when there are no sites -->
-        <div class="well" ng-hide="main.sites.length">
-          You have no websites.
-          <button class="btn btn-primary" data-toggle="modal" data-target="#website-modal">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add one now!
-          </button>
-        </div>
+          <!-- Main table -->
+          <table
+            class="table table-bordered"
+            ng-show="tab.currentGroup.sites.length"
+            ng-hide="main.sites.length === 0 || tab.isCurrentGroup('ungrouped')"
+            >
+            <tr>
+              <th scope="col"> ID </th>
+              <th scope="col"> Url </th>
+              <th scope="col"> Color </th>
+              <th class="text-center" scope="col" colspan="2">Action</th>
+            </tr>
+            <tr ng-repeat="site in main.sites | filter:{groups:tab.currentGroup.name} |
+                           filter:{url: search} | limitTo:main.dataToShow.value track by site.id"
+            >
+              <!-- Table data -->
+              <td> {{$index + 1}} </td>
+              <td>
+                <a href="{{site.url}}" target="_blank">
+                  {{site.url}}
+                </a>
+              </td>
+              <td> {{site.color || "none"}} </td>
+              <td>
+                <a href="#" ng-click="main.setEditedSite(site)" data-toggle="modal" data-target="#edit-website-modal">
+                  Edit
+                </a>
+              </td>
+              <td>
+                <a href="#" ng-click="main.deleteSite(site)">
+                  Delete
+                </a>
+              </td>
+            </tr>
+          </table>
 
-        <!-- Search and select form -->
-        <section class="row" ng-show="main.sites.length">
-          <div class="col-sm-12">
-            <form class="form-inline">
-              <input type="text" class="form-control" placeholder="Search" ng-model="search">
-              <select
-                name="howManyRows" id="howManyRows"
-                class="form-control pull-right"
-                ng-options="option.value for option in main.dataToShowOptions track by option.id"
-                ng-model="main.dataToShow"></select>
-            </form>
-          </div>
-        </section>
+          <!-- Ungrouped table -->
+          <table
+            class="table table-bordered"
+            ng-show="tab.isCurrentGroup('ungrouped') && main.getUngroupedSites()"
+            ng-hide="!tab.isCurrentGroup('ungrouped') ||
+                               main.sites.length === 0"
+            >
+            <tr>
+              <th scope="col"> ID </th>
+              <th scope="col"> Url </th>
+              <th scope="col"> Color </th>
+              <th class="text-center" scope="col" colspan="2">Action</th>
+            </tr>
 
-        <br>
-
-        <!-- Main table -->
-        <table
-          class="table table-bordered"
-          ng-show="main.currentGroup.sites.length"
-          ng-hide="main.sites.length === 0 || main.isCurrentGroup('ungrouped')"
-          >
-          <tr>
-            <th scope="col"> ID </th>
-            <th scope="col"> Url </th>
-            <th scope="col"> Color </th>
-            <th class="text-center" scope="col" colspan="2">Action</th>
-          </tr>
-          <tr ng-repeat="site in main.sites | filter:{groups:main.currentGroup.name} |
-                         filter:{url: search} | limitTo:main.dataToShow.value track by site.id"
-          >
-            <!-- Table data -->
-            <td> {{$index + 1}} </td>
-            <td>
-              <a href="{{site.url}}" target="_blank">
-                {{site.url}}
-              </a>
-            </td>
-            <td> {{site.color || "none"}} </td>
-            <td>
-              <a href="#" ng-click="main.setEditedSite(site)" data-toggle="modal" data-target="#edit-website-modal">
-                Edit
-              </a>
-            </td>
-            <td>
-              <a href="#" ng-click="main.deleteSite(site)">
-                Delete
-              </a>
-            </td>
-          </tr>
-        </table>
-
-        <!-- Ungrouped table -->
-        <table
-          class="table table-bordered"
-          ng-show="main.isCurrentGroup('ungrouped') && main.getUngroupedSites()"
-          ng-hide="!main.isCurrentGroup('ungrouped') ||
-                             main.sites.length === 0"
-          >
-          <tr>
-            <th scope="col"> ID </th>
-            <th scope="col"> Url </th>
-            <th scope="col"> Color </th>
-            <th class="text-center" scope="col" colspan="2">Action</th>
-          </tr>
-
-          <tr ng-repeat="site in main.sites |
-                   filter:main.byEmptyGroup |
-                   filter:search            |
-                   limitTo:main.dataToShow.value track by site.id"
-          >
-            <!-- Table data -->
-            <td> {{$index + 1}} </td>
-            <td>
-              <a href="{{site.url}}" target="_blank">
-                {{site.url}}
-              </a>
-            </td>
-            <td> {{site.color || "none"}} </td>
-            <td>
-              <a href="#" ng-click="main.setEditedSite(site)" data-toggle="modal" data-target="#edit-website-modal">
-                Edit
-              </a>
-            </td>
-            <td>
-              <a href="#" ng-click="main.deleteSite(site)">
-                Delete
-              </a>
-            </td>
-          </tr>
-        </table>
-      </section> <!-- .col-sm-5 -->
+            <tr ng-repeat="site in main.sites |
+                     filter:main.byEmptyGroup |
+                     filter:search            |
+                     limitTo:main.dataToShow.value track by site.id"
+            >
+              <!-- Table data -->
+              <td> {{$index + 1}} </td>
+              <td>
+                <a href="{{site.url}}" target="_blank">
+                  {{site.url}}
+                </a>
+              </td>
+              <td> {{site.color || "none"}} </td>
+              <td>
+                <a href="#" ng-click="main.setEditedSite(site)" data-toggle="modal" data-target="#edit-website-modal">
+                  Edit
+                </a>
+              </td>
+              <td>
+                <a href="#" ng-click="main.deleteSite(site)">
+                  Delete
+                </a>
+              </td>
+            </tr>
+          </table>
+        </section> <!-- .col-sm-5 -->
+      </div>
     </div> <!-- .row -->
   </main>
 
