@@ -56,26 +56,13 @@
 
           <!-- Shows up when there are no sites -->
           <div class="well" ng-hide="main.sites.length">
-            You have no websites.
-            <button class="btn btn-primary" data-toggle="modal" data-target="#website-modal">
-              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add one now!
-            </button>
+            <no-websites></no-websites>
           </div>
 
           <!-- Search and select form -->
           <section class="row" ng-show="main.sites.length">
-            <div class="col-sm-12">
-              <form class="form-inline">
-                <input type="text" class="form-control" placeholder="Search" ng-model="search">
-                <select
-                  name="howManyRows" id="howManyRows"
-                  class="form-control pull-right"
-                  ng-options="option.value for option in main.dataToShowOptions track by option.id"
-                  ng-model="main.dataToShow"></select>
-              </form>
-            </div>
+            <search-select-form></search-select-form>
           </section>
-
           <br>
 
           <!-- Main table -->
@@ -153,7 +140,6 @@
               </td>
             </tr>
           </table>
-
         </section> <!-- .col-sm-5 -->
       </div>
     </div> <!-- .row -->

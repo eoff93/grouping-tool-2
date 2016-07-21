@@ -55,6 +55,20 @@ angular.module('groupApp', ['checklist-model'])
   }
 })
 
+.directive('noWebsites', function() {
+  return {
+    restrict: 'E',
+    templateUrl: './templates/no-websites.template.html'
+  }
+})
+
+.directive('searchSelectForm', function() {
+  return {
+    restrict: 'E',
+    templateUrl: './templates/search-select-form.template.html'
+  }
+})
+
 .controller('TabController', function() {
   var vm = this;
   vm.currentGroup = null;
