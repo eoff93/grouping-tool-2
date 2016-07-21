@@ -20,6 +20,20 @@ angular.module('groupApp', ['checklist-model'])
   }
 })
 
+.directive('addSiteModal', function() {
+  return {
+    restrict: 'E',
+    templateUrl: './templates/add-site-modal.template.html'
+  }
+})
+
+.directive('editSiteModal', function() {
+  return {
+    restrict: 'E',
+    templateUrl: './templates/edit-site-modal.template.html'
+  }
+})
+
 .controller('TabController', function() {
   var vm = this;
   vm.currentGroup = null;
