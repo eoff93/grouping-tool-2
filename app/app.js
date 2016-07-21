@@ -6,6 +6,20 @@ angular.module('groupApp', ['checklist-model'])
   }
 })
 
+.directive('addGroupModal', function() {
+  return {
+    restrict: 'E',
+    templateUrl: './templates/add-group-modal.template.html'
+  }
+})
+
+.directive('editGroupModal', function() {
+  return {
+    restrict: 'E',
+    templateUrl: './templates/edit-group-modal.template.html'
+  }
+})
+
 .controller('TabController', function() {
   var vm = this;
   vm.currentGroup = null;
