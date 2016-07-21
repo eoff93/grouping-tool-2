@@ -51,27 +51,12 @@
             </button>
 
             <!-- Group buttons -->
-            <div ng-repeat="group in groupCtrl.groups | filter:{sites: search} | limitTo:10 track by group.id">
-              <button type="button" class="list-group-item" ng-click="tab.setCurrentGroup(group)" ng-class="{'current-group':tab.isCurrentGroup(group)}">
-
-                {{group.name}}
-                <!-- Group edit and delete section -->
-                <section class="group-controls pull-right">
-                  <a href="#" ng-click="groupCtrl.setEditedGroup(group)" data-toggle="modal" data-target="#edit-group-modal">
-                    <span class="glyphicon glyphicon-edit" style="color: #EC971F" aria-hidden="true"></span>
-                  </a>
-                  <a href="#" ng-click="groupCtrl.deleteGroup(group)">
-                    <span class="glyphicon glyphicon-remove" style="color: #C9302C" aria-hidden="true"></span>
-                  </a>
-                  <span class="badge badge-alt">{{group.sites.length || 0}}</span>
-                </section>
-              </button>
-            </div>
+            <group-list></group-list>
 
             <!-- Group modals -->
             <add-group-modal></add-group-modal>
             <edit-group-modal></edit-group-modal>
-            
+
             <!-- Site modals -->
             <add-site-modal></add-site-modal>
             <edit-site-modal></edit-site-modal>
