@@ -39,6 +39,7 @@ angular.module('controllers')
   */
   vm.newSite = {groups: []};
   vm.editedSite = {};
+  vm.oldEditedSite = {};
 
   vm.createSite = function(site) {
     site.id = vm.sites.length + 1;
@@ -98,6 +99,7 @@ angular.module('controllers')
 
   vm.setEditedSite = function(site) {
     vm.editedSite = angular.copy(site);
+    vm.oldEditedSite = angular.copy(site);
   }
 
   vm.updateSite = function(site) {
@@ -110,7 +112,7 @@ angular.module('controllers')
       }
     }
     vm.sites[index] = site;
-    vm.removeSiteFromGroups(site);
+    vm.removeSiteFromGroups(vm.oldEditedSite);
     vm.addSiteToGroups(site);
   }
 })
