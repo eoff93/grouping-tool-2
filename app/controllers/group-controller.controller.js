@@ -1,4 +1,4 @@
-angular.module('groupApp')
+angular.module('controllers')
 
 .controller('GroupController', function(getData) {
   var vm = this;

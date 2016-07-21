@@ -1,4 +1,4 @@
-angular.module('groupApp')
+angular.module('services')
 .factory('getData', function() {
   return {
     groups: [],

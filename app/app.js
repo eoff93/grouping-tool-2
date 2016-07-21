@@ -1,4 +1,4 @@
-angular.module('groupApp', ['checklist-model'])
+angular.module('groupApp', ['checklist-model', 'controllers'])
 
 .directive('addGroupModal', function() {
   return {

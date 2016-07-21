@@ -1,4 +1,4 @@
-angular.module('groupApp')
+angular.module('controllers')
 
 .controller('MainController', function(getData) {
   // Initial variables
