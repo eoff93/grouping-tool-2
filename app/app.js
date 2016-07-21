@@ -41,6 +41,13 @@ angular.module('groupApp', ['checklist-model'])
   }
 })
 
+.directive('controls', function() {
+  return {
+    restrict: 'E',
+    templateUrl: './templates/controls.template.html'
+  }
+})
+
 .controller('TabController', function() {
   var vm = this;
   vm.currentGroup = null;
