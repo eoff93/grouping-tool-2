@@ -69,6 +69,20 @@ angular.module('groupApp', ['checklist-model'])
   }
 })
 
+.directive('mainTable', function() {
+  return {
+    restrict: 'E',
+    templateUrl: './templates/main-table.template.html'
+  }
+})
+
+.directive('ungroupedTable', function() {
+  return {
+    restrict: 'E',
+    templateUrl: './templates/ungrouped-table.template.html'
+  }
+})
+
 .controller('TabController', function() {
   var vm = this;
   vm.currentGroup = null;
