@@ -48,6 +48,13 @@ angular.module('groupApp', ['checklist-model'])
   }
 })
 
+.directive('allAndUngroupedBtns', function() {
+  return {
+    restrict: 'E',
+    templateUrl: './templates/all-and-ungrouped-btns.template.html'
+  }
+})
+
 .controller('TabController', function() {
   var vm = this;
   vm.currentGroup = null;

@@ -1,0 +1,10 @@
+<!-- All websites button -->
+<button type="button" class="list-group-item active" ng-click="tab.setCurrentGroup(null)">
+  All websites <span class="badge">{{main.sites.length}}</span>
+</button>
+
+<!-- Ungrouped websites button -->
+<button type="button" class="list-group-item" ng-click="tab.setCurrentGroup('ungrouped')" ng-class="{'current-group':tab.isCurrentGroup('ungrouped')}">
+  Ungrouped websites
+  <span class="badge badge-alt">{{main.getUngroupedSites()}}</span>
+</button>
